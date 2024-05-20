@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Gender Reveal</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body id="body">
+
+    <main>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100">
+            <div id="main-reveal">
+                <h1 class="pb-1 text-center">Gender Reveal</h1>
+                <h2 class="pb-4 text-center">¿Quieres conocer el género del bebé?</h2>
+                <div class="text-center">
+                    <button class="btn btn-large btn-outline-dark" id="button-reveal">
+                        Descubrelo aquí
+                    </button>
+                </div>
+            </div>
+            <div id="end-reveal" class="d-none w-100 h-100">
+                <div class="w-100 h-100 d-flex justify-content-center align-items-center flex-column"
+                    id="imagen-fondo-abajo">
+                    <h1 class="text-center">Es una niña</h1>
+                    <h2>Descubre su nombre</h2>
+                    <div id="game-board"></div>
+                    <div id="keyboard-cont">
+                        <div class="first-row">
+                            <button class="keyboard-button">q</button>
+                            <button class="keyboard-button">w</button>
+                            <button class="keyboard-button">e</button>
+                            <button class="keyboard-button">r</button>
+                            <button class="keyboard-button">t</button>
+                            <button class="keyboard-button">y</button>
+                            <button class="keyboard-button">u</button>
+                            <button class="keyboard-button">i</button>
+                            <button class="keyboard-button">o</button>
+                            <button class="keyboard-button">p</button>
+                        </div>
+                        <div class="second-row">
+                            <button class="keyboard-button">a</button>
+                            <button class="keyboard-button">s</button>
+                            <button class="keyboard-button">d</button>
+                            <button class="keyboard-button">f</button>
+                            <button class="keyboard-button">g</button>
+                            <button class="keyboard-button">h</button>
+                            <button class="keyboard-button">j</button>
+                            <button class="keyboard-button">k</button>
+                            <button class="keyboard-button">l</button>
+                            <button class="keyboard-button">ñ</button>
+                        </div>
+                        <div class="third-row">
+                            <button class="keyboard-button">Del</button>
+                            <button class="keyboard-button">z</button>
+                            <button class="keyboard-button">x</button>
+                            <button class="keyboard-button">c</button>
+                            <button class="keyboard-button">v</button>
+                            <button class="keyboard-button">b</button>
+                            <button class="keyboard-button">n</button>
+                            <button class="keyboard-button">m</button>
+                            <button class="keyboard-button">Enter</button>
+                        </div>
+                    </div>
+                    <h2 id="nameChildren" class="pt-3"></h2>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        const WORDS = ['laia', 'alba', 'alma', 'arya', 'azul', 'cala', 'dana', 'dena', 'elsa', 'emma', 'gala', 'gina', 'ines', 'jade', 'jena', 'lara', 'leah', 'lena', 'lola', 'lina', 'luna', 'mila', 'mora', 'maya', 'naya', 'mina', 'nora', 'nova', 'nala', 'oana', 'olga', 'rita', 'roma', 'rosa', 'roxy', 'sara', 'sira', 'siri', 'sofy', 'sole', 'sora', 'star', 'syra', 'taia', 'tesa', 'tori', 'tyra', 'usue', 'veda', 'vega', 'vida', 'xena', 'yara', 'yuna', 'zara' , 'zoey', 'zuri' ];
+
+        $(document).ready(function () {
+            function applyGradient(step, totalSteps) {
+                if (step <= totalSteps) {
+                    const percentage = (step / totalSteps) * 100;
+                    const gradientColor = `rgba(248, 35, 177, 0.3) ${percentage}%, rgba(159, 236, 251, 0.6) 100%)`;
+                    $('#body').css('background', `linear-gradient(90deg, ${gradientColor}`);
+                    setTimeout(function () {
+                        applyGradient(step + 1, totalSteps);
+                    }, 20);
+                } else {
+                    $('#body').css('background', 'rgba(248, 35, 177, 0.3)');
+                }
+            }
+
+            $('#button-reveal').click(function () {
+                $('#main-reveal').css('display', 'none');
+                applyGradient(1, 7); // Cambia el 7 al número de pasos que desees
+                $('#end-reveal').removeClass('d-none');
+            });
+
+            const NUMBER_OF_GUESSES = 5;
+            let guessesRemaining = 5;
+            let currentGuess = [];
+            let nextLetter = 0;
+            let rightGuessString = 'laia';
+
+            function initBoard() {
+                let board = document.getElementById("game-board");
+
+                for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+                    let row = document.createElement("div");
+                    row.className = "letter-row";
+
+                    for (let j = 0; j < 4; j++) {
+                        let box = document.createElement("div");
+                        box.className = "letter-box";
+                        row.appendChild(box);
+                    }
+
+                    board.appendChild(row);
+                }
+            }
+
+            function shadeKeyBoard(letter, color) {
+                for (const elem of document.getElementsByClassName("keyboard-button")) {
+                    if (elem.textContent === letter) {
+                        let oldColor = elem.style.backgroundColor;
+                        if (oldColor === "MediumSpringGreen") {
+                            return;
+                        }
+
+                        if (oldColor === "LemonChiffon" && color !== "MediumSpringGreen") {
+                            return;
+                        }
+
+                        elem.style.backgroundColor = color;
+                        break;
+                    }
+                }
+            }
+
+            function deleteLetter() {
+                let row = document.getElementsByClassName("letter-row")[5 - guessesRemaining];
+                let box = row.children[nextLetter - 1];
+                box.textContent = "";
+                box.classList.remove("filled-box");
+                currentGuess.pop();
+                nextLetter -= 1;
+            }
+
+            function checkGuess() {
+                let row = document.getElementsByClassName("letter-row")[5 - guessesRemaining];
+                let guessString = "";
+                let rightGuess = Array.from(rightGuessString);
+
+                for (const val of currentGuess) {
+                    guessString += val;
+                }
+
+                if (guessString.length < 4) {
+                    toastr.error("Not enough letters!");
+                    return;
+                }
+
+                if (!WORDS.includes(guessString.toLowerCase())) {
+                    toastr.error("Word not in list!");
+                    return;
+                }
+
+                var letterColor = ["LightGray", "LightGray", "LightGray", "LightGray"];
+
+                //check green
+                for (let i = 0; i < 4; i++) {
+                    if (rightGuess[i] == currentGuess[i]) {
+                        letterColor[i] = "MediumSpringGreen";
+                        rightGuess[i] = "#";
+                    }
+                }
+
+                //check yellow
+                //checking guess letters
+                for (let i = 0; i < 4; i++) {
+                    if (letterColor[i] == "MediumSpringGreen") continue;
+
+                    //checking right letters
+                    for (let j = 0; j < 5; j++) {
+                        if (rightGuess[j] == currentGuess[i]) {
+                            letterColor[i] = "LemonChiffon";
+                            rightGuess[j] = "#";
+                        }
+                    }
+                }
+
+                for (let i = 0; i < 4; i++) {
+                    let box = row.children[i];
+                    let delay = 250 * i;
+                    setTimeout(() => {
+                        //shade box
+                        box.style.backgroundColor = letterColor[i];
+                        shadeKeyBoard(guessString.charAt(i) + "", letterColor[i]);
+                    }, delay);
+                }
+
+                if (guessString === rightGuessString) {
+                    toastr.success("You guessed right! Game over!");
+                    guessesRemaining = 0;
+                    return;
+                } else {
+                    guessesRemaining -= 1;
+                    currentGuess = [];
+                    nextLetter = 0;
+
+                    if (guessesRemaining === 0) {
+                        $('#keyboard-cont').hide();
+                        $('#nameChildren').text(`Su nombre va a ser ${rightGuessString.toUpperCase()}`)
+                        toastr.error("Se te han acabado los intentos");
+                    }
+                }
+            }
+
+            function insertLetter(pressedKey) {
+                if (nextLetter === 4) {
+                    return;
+                }
+                pressedKey = pressedKey.toLowerCase();
+
+                let row = document.getElementsByClassName("letter-row")[5 - guessesRemaining];
+                let box = row.children[nextLetter];
+                box.textContent = pressedKey;
+                box.classList.add("filled-box");
+                currentGuess.push(pressedKey);
+                nextLetter += 1;
+            }
+
+            document.addEventListener("keyup", (e) => {
+                if (guessesRemaining === 0) {
+                    return;
+                }
+
+                let pressedKey = String(e.key);
+                if (pressedKey === "Backspace" && nextLetter !== 0) {
+                    deleteLetter();
+                    return;
+                }
+
+                if (pressedKey === "Enter") {
+                    checkGuess();
+                    return;
+                }
+
+                let found = pressedKey.match(/[a-z]/gi);
+                if (!found || found.length > 1) {
+                    return;
+                } else {
+                    insertLetter(pressedKey);
+                }
+            });
+
+            document.getElementById("keyboard-cont").addEventListener("click", (e) => {
+                const target = e.target;
+
+                if (!target.classList.contains("keyboard-button")) {
+                    return;
+                }
+                let key = target.textContent;
+
+                if (key === "Del") {
+                    key = "Backspace";
+                }
+
+                document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+            });
+
+            initBoard();
+
+        });
+    </script>
+</body>
+
+</html>
