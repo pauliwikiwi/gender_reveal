@@ -1,10 +1,10 @@
-/* @font-face {
+@font-face {
     font-family: 'hello-honey';
-    src: url('../fonts/hello\ honey.otf');
-} */
+    src: url('/gender_reveal/fonts/hello\ honey.otf');
+}
 @font-face {
     font-family: 'montserrat';
-    src: url('gender_reveal/fonts/Montserrat-Regular.ttf');
+    src: url('/gender_reveal/fonts/Montserrat-Regular.ttf');
 }
 *{
     padding: 0px;
