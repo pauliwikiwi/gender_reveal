@@ -4,7 +4,7 @@
 } */
 @font-face {
     font-family: 'montserrat';
-    src: url('/fonts/Montserrat-Regular.ttf');
+    src: url('gender_reveal/fonts/Montserrat-Regular.ttf');
 }
 *{
     padding: 0px;
