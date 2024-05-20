@@ -1,11 +1,11 @@
-@font-face {
+/* @font-face {
     font-family: 'hello-honey';
     src: url('../fonts/hello\ honey.otf');
 }
 @font-face {
     font-family: 'montserrat';
     src: url('../fonts/Montserrat-Regular.ttf');
-}
+} */
 *{
     padding: 0px;
     margin: 0px;
