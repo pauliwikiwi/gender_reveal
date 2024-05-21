@@ -184,12 +184,12 @@
                 }
 
                 if (guessString.length < 4) {
-                    toastr.error("Not enough letters!");
+                    toastr.error("No son las suficientes letras!");
                     return;
                 }
 
                 if (!WORDS.includes(guessString.toLowerCase())) {
-                    toastr.error("Word not in list!");
+                    toastr.error("Ese nombre no está en la lista, prueba con otro!");
                     return;
                 }
 
@@ -228,7 +228,8 @@
                 }
 
                 if (guessString === rightGuessString) {
-                    toastr.success("You guessed right! Game over!");
+                    toastr.success("Has acertado! Se acabo el juego!");
+                    $('#keyboard-cont').hide();
                     guessesRemaining = 0;
                     return;
                 } else {
@@ -239,7 +240,7 @@
                     if (guessesRemaining === 0) {
                         $('#keyboard-cont').hide();
                         $('#nameChildren').text(`Su nombre va a ser ${rightGuessString.toUpperCase()}`)
-                        toastr.error("Se te han acabado los intentos");
+                        toastr.error("Se han acabado los intentos!");
                     }
                 }
             }
