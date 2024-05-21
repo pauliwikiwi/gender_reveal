@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap');
+
 @font-face {
     font-family: 'hello-honey';
     src: url('/fonts/hello\ honey.otf');
@@ -18,19 +20,19 @@ main{
     height: 100vh;
 }
 h1{
-    font-family: 'hello-honey', 'sans-serif';
+    font-family: 'hello-honey', "Style Script", 'sans-serif';
     font-size: 8em;
 }
 h2{
-    font-family: "montserrat", sans-serif;
+    font-family: "montserrat", "Montserrat", sans-serif;
     font-size: 1.5em;
 }
 button{
-    font-family: "montserrat", sans-serif !important;
+    font-family: "montserrat", "Montserrat", sans-serif !important;
 }
 
 #imagen-fondo-abajo{
-    background-image: url(/images/confetti-transparent-gif-17.png);
+    background-image: url('/images/confetti-transparent-gif-17.png');
     background-repeat: no-repeat;
     background-position: bottom right;
     background-size: contain;
