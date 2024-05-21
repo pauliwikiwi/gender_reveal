@@ -30,7 +30,7 @@ button{
 }
 
 #imagen-fondo-abajo{
-    background-image: url(../images/confetti-transparent-gif-17.png);
+    background-image: url(/images/confetti-transparent-gif-17.png);
     background-repeat: no-repeat;
     background-position: bottom right;
     background-size: contain;
